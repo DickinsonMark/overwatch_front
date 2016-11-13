@@ -1,0 +1,14 @@
+<div class="row" id="loginPanel">
+  <div class="col s12 m5">
+    <div class="card-panel">
+      <form name="loginForm">
+        <div input-field>
+          <label for="username">Battle Tag</label>
+          <input id="username" type="text" name="username" ng-model="loginCtrl.username">
+        </div>
+        <a ui-sref="login.profile"><button type="button" name="button" ng-click="loginCtrl.getUser(loginCtrl.username)">Clickme!</button></a>
+      </form>
+    </div>
+  </div>
+</div>
+<div ui-view></div>

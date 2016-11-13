@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col s12 m5">
+    <div class="card-panel">
+      <form name="registerForm">
+        <div input-field>
+          <label for="username">Battle Tag</label>
+          <input id="username" type="text" name="username" ng-model="registerCtrl.form.username">
+        </div>
+        <div input-field>
+          <select id="system" name="system" material-select ng-model="registerCtrl.form.system">
+            <option disabled selected>Pick your system</option>
+            <option ng-repeat="system in registerCtrl.systems" value="{{system.value}}">{{system.label}}</option>
+          </select>
+        </div>
+        <div input-field>
+          <select id="region" name="region" material-select ng-model="registerCtrl.form.region">
+            <option disabled selected>Pick your region</option>
+            <option ng-repeat="region in registerCtrl.regions" value="{{region.value}}">{{region.label}}</option>
+          </select>
+        </div>
+        <button ng-click="registerCtrl.register(registerCtrl.form)">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -12,13 +12,17 @@
     /*jshint validthis: true */
     const vm = this;
     vm.username = ``;
+    vm.userInfo = ``;
     vm.type = `competitive`;
+    vm.hero = ``;
     vm.loaded = false;
+    vm.heroLoaded = false;
     vm.error = false;
     vm.profile = {};
     vm.getUser = getUser;
     vm.showComp = showComp;
     vm.showQuick = showQuick;
+    vm.heroClick = heroClick;
 
     function getUser(username) {
       $(`#loginPanel`).css(`display`, `none`);
@@ -88,6 +92,37 @@
 
     function showQuick() {
       vm.type = `quickplay`;
+    }
+
+    function heroClick(heroName) {
+      switch (true) {
+        case heroName === `Torbjörn`:
+          vm.hero = `Torbjoern`;
+          break;
+        case heroName === `Lúcio`:
+          vm.hero = `Lucio`;
+          break;
+        case heroName === `Soldier: 76`:
+          vm.hero = `Soldier76`;
+          break;
+        case heroName === `D.Va`:
+          vm.hero = `DVa`;
+          break;
+        default:
+          vm.hero = heroName;
+      }
+      $http({
+        method: `GET`,
+        url: `https://api.lootbox.eu/${vm.userInfo.system}/${vm.userInfo.region}/${vm.userInfo.username}/${vm.type}/hero/${vm.hero}/`
+      }).then((data) => {
+        vm.heroLoaded = true;
+        console.log(data.data[vm.hero]);
+      }).catch((err) => {
+        console.log(err.data);
+        $(`#heroError`).html(err.data);
+        vm.loaded = true;
+        vm.error = true;
+      });
     }
   }
 

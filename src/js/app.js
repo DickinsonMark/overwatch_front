@@ -11,7 +11,6 @@
       'myApp.components.main',
       'myApp.components.register',
       'myApp.components.login',
-      'myApp.components.stats',
       'ui.router'
     ]);
 

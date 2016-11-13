@@ -38,27 +38,49 @@
   <div class="row">
     <div class="col s12">
       <div class="card-panel large">
+        <div id="userName">
+          <img ng-src="{{loginCtrl.profile.player.avatar}}" />
+          <h1>{{loginCtrl.profile.player.username}}</h1>
+          <div id="userLevel">
+            <img ng-src="{{loginCtrl.profile.player.levelFrame}}" />
+            <h1>{{loginCtrl.profile.player.level}}</h1>
+          </div>
+          <div id="mostPlayed">
+            <div ng-if="loginCtrl.type === 'competitive'">
+              <img ng-src="{{loginCtrl.profile.competitive[0].image}}" />
+              <h1>{{loginCtrl.profile.competitive[0].name}}</h1>
+              <h4>{{loginCtrl.profile.competitive[0].playtime}}</h4>
+            </div>
+            <div ng-if="loginCtrl.type === 'quickplay'">
+              <img ng-src="{{loginCtrl.profile.quickplay[0].image}}" />
+              <h1>{{loginCtrl.profile.quickplay[0].name}}</h1>
+              <h4>{{loginCtrl.profile.quickplay[0].playtime}}</h4>
+            </div>
+          </div>
+        </div>
         <div>
           <button type="button" name="competitive" ng-click="loginCtrl.showComp()">Competitive</button>
           <button type="button" name="quickplay" ng-click="loginCtrl.showQuick()">Quick Play</button>
         </div>
         <div>
-          <img ng-src="{{loginCtrl.profile.player.avatar}}" />
-          <h1>{{loginCtrl.profile.player.username}}</h1>
-          <div>
-            <img ng-src="{{loginCtrl.profile.player.levelFrame}}" />
-            <h1>{{loginCtrl.profile.player.level}}</h1>
-          </div>
-          <div>
-            <img ng-src="{{loginCtrl.profile.heroes[0].image}}" />
-            <h1>{{loginCtrl.profile.heroes[0].name}}</h1>
-            <h4>{{loginCtrl.profile.heroes[0].playtime}}</h4>
-          </div>
-        </div>
-        <div>
-          <ul>
-            <li ng-repeat="hero in loginCtrl.profile.heroes">{{hero.name}} {{hero.playtime}}</li>
-          </ul>
+          <table class="striped highlight">
+            <thead>
+              <th data-field="name">Hero</th>
+              <th data-field="time">Time Played</th>
+            </thead>
+            <tbody ng-if="loginCtrl.type === 'competitive'">
+              <tr ng-repeat="hero in loginCtrl.profile.competitive">
+                <td>{{hero.name}}</td>
+                <td>{{hero.playtime}}</td>
+              </tr>
+            </tbody>
+            <tbody ng-if="loginCtrl.type === 'quickplay'">
+              <tr ng-repeat="hero in loginCtrl.profile.quickplay">
+                <td>{{hero.name}}</td>
+                <td>{{hero.playtime}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -67,9 +89,9 @@
 
 <div ng-if="loginCtrl.error">
   <div class="row">
-    <div class="col s12 m5">
+    <div class="col s12">
       <div class="card-panel teal">
-        <h1>Looks like something went wrong!</h1>
+        <h1 class="white-text">Looks like something went wrong!</h1>
       </div>
     </div>
   </div>

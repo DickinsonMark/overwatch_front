@@ -27,11 +27,6 @@
       controllerAs: 'loginCtrl'
     }).state('login.profile', {
       templateUrl: 'js/components/login/partials/_UserProfile.html'
-    }).state('stats', {
-      url: '/stats',
-      templateUrl: 'js/components/stats/stats.view.html',
-      controller: 'statsController',
-      controllerAs: 'statsCtrl'
     });
   }
 })();

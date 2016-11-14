@@ -2,8 +2,7 @@
 
   'use strict';
 
-  angular
-    .module(`myApp.components.login`, [])
+  angular.module(`myApp.components.login`, [])
     .controller(`loginController`, loginController);
 
   loginController.$inject = [`$scope`, `$http`];
@@ -12,7 +11,8 @@
     /*jshint validthis: true */
     const vm = this;
     vm.username = ``;
-    vm.userInfo = ``;
+    vm.userInfo = {};
+    vm.heroInfo = {};
     vm.type = `competitive`;
     vm.hero = ``;
     vm.loaded = false;
@@ -62,19 +62,17 @@
             url: `https://api.lootbox.eu/${vm.userInfo.system}/${vm.userInfo.region}/${vm.userInfo.username}/quickplay/heroes`
           }).then((heroes) => {
             heroes.data = heroes.data.filter((hero) => {
-              heroes.data = heroes.data.filter((hero) => {
-                switch (true) {
-                  case hero.name.includes('&#xFA;'):
-                    hero.name = hero.name.replace('&#xFA;', 'ú');
-                    break;
-                  case hero.name.includes('&#xF6;'):
-                    hero.name = hero.name.replace('&#xF6;', 'ö');
-                    break;
-                }
-                return hero.playtime !== '--';
-              });
-              vm.profile.quickplay = heroes.data;
+              switch (true) {
+                case hero.name.includes('&#xFA;'):
+                  hero.name = hero.name.replace('&#xFA;', 'ú');
+                  break;
+                case hero.name.includes('&#xF6;'):
+                  hero.name = hero.name.replace('&#xF6;', 'ö');
+                  break;
+              }
+              return hero.playtime !== '--';
             });
+            vm.profile.quickplay = heroes.data;
           });
         } else {
           vm.loaded = true;
@@ -116,11 +114,25 @@
         url: `https://api.lootbox.eu/${vm.userInfo.system}/${vm.userInfo.region}/${vm.userInfo.username}/${vm.type}/hero/${vm.hero}/`
       }).then((data) => {
         vm.heroLoaded = true;
-        console.log(data.data[vm.hero]);
+        vm.heroInfo = data.data[vm.hero];
+        switch (true) {
+          case heroName === `Torbjoern`:
+            vm.hero = `Torbjörn`;
+            break;
+          case heroName === `Lucio`:
+            vm.hero = `Lúcio`;
+            break;
+          case heroName === `Soldier76`:
+            vm.hero = `Soldier: 76`;
+            break;
+          case heroName === `DVa`:
+            vm.hero = `D.Va`;
+            break;
+          default:
+            vm.hero = heroName;
+        }
       }).catch((err) => {
-        console.log(err.data);
-        $(`#heroError`).html(err.data);
-        vm.loaded = true;
+        vm.heroLoaded = true;
         vm.error = true;
       });
     }

@@ -38,29 +38,33 @@
   <div class="row">
     <div class="col s12">
       <div class="card-panel large">
-        <div id="userName">
+        <div class="user">
           <img ng-src="{{loginCtrl.profile.player.avatar}}" />
           <h1>{{loginCtrl.profile.player.username}}</h1>
-          <div id="userLevel">
-            <img ng-src="{{loginCtrl.profile.player.levelFrame}}" />
-            <h1>{{loginCtrl.profile.player.level}}</h1>
-          </div>
-          <div id="mostPlayed">
-            <div ng-if="loginCtrl.type === 'competitive'">
-              <img ng-src="{{loginCtrl.profile.competitive[0].image}}" />
-              <h1>{{loginCtrl.profile.competitive[0].name}}</h1>
-              <h4>{{loginCtrl.profile.competitive[0].playtime}}</h4>
-            </div>
-            <div ng-if="loginCtrl.type === 'quickplay'">
-              <img ng-src="{{loginCtrl.profile.quickplay[0].image}}" />
-              <h1>{{loginCtrl.profile.quickplay[0].name}}</h1>
-              <h4>{{loginCtrl.profile.quickplay[0].playtime}}</h4>
-            </div>
+          <div class="level">
+            <img class="levelBorder" ng-src="{{loginCtrl.profile.player.levelFrame}}" />
+            <h1 class="levelNumber">{{loginCtrl.profile.player.level}}</h1>
           </div>
         </div>
         <div>
           <button type="button" name="competitive" ng-click="loginCtrl.showComp()">Competitive</button>
           <button type="button" name="quickplay" ng-click="loginCtrl.showQuick()">Quick Play</button>
+        </div>
+        <div class="mostPlayed">
+          <div ng-if="loginCtrl.type === 'competitive'">
+            <img ng-src="{{loginCtrl.profile.competitive[0].image}}" />
+            <div class="mostPlayedText">
+              <h1><a ui-sref="login.hero" ng-click="loginCtrl.heroClick(loginCtrl.profile.competitive[0].name)">{{loginCtrl.profile.competitive[0].name}}</a></h1>
+              <h4>Time played: {{loginCtrl.profile.competitive[0].playtime}}</h4>
+            </div>
+          </div>
+          <div ng-if="loginCtrl.type === 'quickplay'">
+            <img ng-src="{{loginCtrl.profile.quickplay[0].image}}" />
+            <div class="mostPlayedText">
+              <h1><a ui-sref="login.hero" ng-click="loginCtrl.heroClick(loginCtrl.profile.quickplay[0].name)">{{loginCtrl.profile.quickplay[0].name}}</a></h1>
+              <h4>Time played: {{loginCtrl.profile.quickplay[0].playtime}}</h4>
+            </div>
+          </div>
         </div>
         <div>
           <table class="striped">
@@ -69,16 +73,18 @@
               <th data-field="time">Time Played</th>
             </thead>
             <tbody ng-if="loginCtrl.type === 'competitive'">
-                <tr ng-repeat="hero in loginCtrl.profile.competitive">
-                  <td>
-                    <a ui-sref="login.hero" ng-click="loginCtrl.heroClick(hero.name)">{{hero.name}}</a>
-                  </td>
-                  <td>{{hero.playtime}}</td>
-                </tr>
+              <tr ng-repeat="hero in loginCtrl.profile.competitive" ng-if="$index > 0">
+                <td>
+                  <a ui-sref="login.hero" ng-click="loginCtrl.heroClick(hero.name)">{{hero.name}}</a>
+                </td>
+                <td>{{hero.playtime}}</td>
+              </tr>
             </tbody>
             <tbody ng-if="loginCtrl.type === 'quickplay'">
-              <tr ng-repeat="hero in loginCtrl.profile.quickplay">
-                <td>{{hero.name}}</td>
+              <tr ng-repeat="hero in loginCtrl.profile.quickplay" ng-if="$index > 0">
+                <td>
+                  <a ui-sref="login.hero" ng-click="loginCtrl.heroClick(hero.name)">{{hero.name}}</a>
+                </td>
                 <td>{{hero.playtime}}</td>
               </tr>
             </tbody>

@@ -9,6 +9,32 @@ html {
   background-size: cover;
 }
 
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.level {
+  position: relative;
+}
+
+.levelNumber {
+  position: absolute;
+  left: 36%;
+  bottom: 28%;
+}
+
+.mostPlayed {
+  height: 200px;
+  color: white;
+  background-image: url(https://overwatch-a.akamaihd.net/img/pages/buy/buy-bar-bg-b848f091bff6072bda7671311ce459727decd0281e85902958bc8d6b0b4d342875ad58385fa809928fd9b6bff0f7945217aed6e32581b6718a12fb99ab240f1c.jpg);
+}
+
+.mostPlayed img {
+  float: left;
+  height: 200px;
+}
+
 .overwatch-loader {
   width: 25%;
   position: relative;
